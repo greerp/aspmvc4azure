@@ -1,0 +1,2 @@
+[config]
+command = compact /u %DEPLOYMENT_SOURCE%\deploy\SimpleMvcWeb-001.zip %DEPLOYMENT_TARGET%
