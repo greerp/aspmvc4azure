@@ -1,2 +1,1 @@
-# aspmvc4azure
-Example ASP MVC Azure deployable example
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
