@@ -97,3 +97,5 @@ packages/jQuery.Validation.1.11.1/Content/Scripts/jquery.validate.min.js
 packages/jQuery.Validation.1.11.1/jQuery.Validation.1.11.1.nupkg
 packages/repositories.config
 output/
+source/aspmvc4azure.opensdf
+source/aspmvc4azure.sdf
