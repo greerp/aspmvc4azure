@@ -1,0 +1,2 @@
+F:\GitHub\aspmvc4azure\arm\bin\Debug\Scripts\Deploy-AzureResourceGroup.ps1
+F:\GitHub\aspmvc4azure\arm\bin\Debug\Templates\WebSiteSQLDatabase.json

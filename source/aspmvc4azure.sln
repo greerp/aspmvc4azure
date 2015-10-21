@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "web.csproj", "{AAF3086B-8BD7-4849-8F07-4A3E910AC9ED}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "arm", "..\arm\arm.deployproj", "{B04B8A7C-028A-4565-985C-40D2A1B01E4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAF3086B-8BD7-4849-8F07-4A3E910AC9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF3086B-8BD7-4849-8F07-4A3E910AC9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF3086B-8BD7-4849-8F07-4A3E910AC9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF3086B-8BD7-4849-8F07-4A3E910AC9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B04B8A7C-028A-4565-985C-40D2A1B01E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B04B8A7C-028A-4565-985C-40D2A1B01E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B04B8A7C-028A-4565-985C-40D2A1B01E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B04B8A7C-028A-4565-985C-40D2A1B01E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
