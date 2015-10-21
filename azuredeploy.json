@@ -150,7 +150,7 @@
                         "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
                     ],
                     "properties": {
-                        "PROJECT":  ".\deploy",
+                        "PROJECT":  ".\\deploy",
                         "connectionStrings": [
                             {
                                 "ConnectionString": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('databaseName'), ';User Id=', parameters('administratorLogin'), '@', parameters('serverName'), ';Password=', parameters('administratorLoginPassword'), ';')]",
