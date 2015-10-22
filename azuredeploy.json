@@ -182,8 +182,8 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
                         "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/web')]",
-                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName')),'appSettings']",
-                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName')),'connectionStrings']"
+                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName'),'appSettings')]",
+                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName'),'connectionStrings')]"
                     ],
                     "properties": {
                         "RepoUrl": "[parameters('repoUrl')]",
