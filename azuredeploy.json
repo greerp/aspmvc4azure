@@ -153,7 +153,7 @@
             },
             "resources": [
                 {
-                    "apiVersion": "2014-06-01",
+                    "apiVersion": "2014-04-01",
                     "type": "config",
                     "name": "web",
                     "dependsOn": [
@@ -176,12 +176,14 @@
                     }
                 },
                 {
-                    "apiVersion": "2014-06-01",
+                    "apiVersion": "2014-04-01",
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/web')]"
+                        "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/web')]",
+                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName')),'appSettings']",
+                        "[resourceId('Microsoft.Web/Sites/config', parameters('siteName')),'connectionStrings']"
                     ],
                     "properties": {
                         "RepoUrl": "[parameters('repoUrl')]",
