@@ -61,6 +61,12 @@
         "requestedServiceObjectiveId": {
             "type": "string",
             "defaultValue": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c"
+        },
+        "repoUrl": {
+        "type": "string"
+        },
+        "branch": {
+        "type": "string"
         }
     },
     "resources": [
@@ -157,6 +163,20 @@
                                 "Type": 2
                             }
                         ]
+                    }
+                },
+                {
+                    "apiVersion": "2014-06-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
+                        "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/web')]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[parameters('repoUrl')]",
+                        "branch": "[parameters('branch')]",
+                        "IsManualIntegration": true
                     }
                 }
             ]
