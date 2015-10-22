@@ -99,3 +99,6 @@ packages/repositories.config
 output/
 source/aspmvc4azure.opensdf
 source/aspmvc4azure.sdf
+source/bin/
+source/obj/
+xcopy/
