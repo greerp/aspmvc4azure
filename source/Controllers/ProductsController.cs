@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using SimpleMvcWeb.Models;
+using aspmvc4azure.web.Models;
 
-namespace SimpleMvcWeb.Controllers
+namespace aspmvc4azure.web.Controllers
 {
     public class ProductsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = ApplicationDbContext.Create();
 
         // GET: Products
         public async Task<ActionResult> Index()

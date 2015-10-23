@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace SimpleMvcWeb
+namespace aspmvc4azure.web
 {
     public class FilterConfig
     {

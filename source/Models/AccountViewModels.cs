@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleMvcWeb.Models
+namespace aspmvc4azure.web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

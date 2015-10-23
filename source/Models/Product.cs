@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimpleMvcWeb.Models
+namespace aspmvc4azure.web.Models
 {
 
     [Table("tbproduct")]

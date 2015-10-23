@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using aspmvc4azure.web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SimpleMvcWeb.Models;
 
-namespace SimpleMvcWeb.Controllers
+namespace aspmvc4azure.web.Controllers
 {
     [Authorize]
     public class ManageController : Controller

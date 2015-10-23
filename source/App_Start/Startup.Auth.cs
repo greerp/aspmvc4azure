@@ -1,13 +1,13 @@
 ﻿using System;
+using aspmvc4azure.web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using SimpleMvcWeb.Models;
 
-namespace SimpleMvcWeb
+namespace aspmvc4azure.web
 {
     public partial class Startup
     {

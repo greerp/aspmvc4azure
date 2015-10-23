@@ -1,18 +1,16 @@
-namespace SimpleMvcWeb.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
+using aspmvc4azure.web.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SimpleMvcWeb.Models.ApplicationDbContext>
+namespace aspmvc4azure.web.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(SimpleMvcWeb.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

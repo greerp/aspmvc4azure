@@ -1,8 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using aspmvc4azure.web;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(SimpleMvcWeb.Startup))]
-namespace SimpleMvcWeb
+[assembly: OwinStartup(typeof(Startup))]
+namespace aspmvc4azure.web
 {
     public partial class Startup
     {
