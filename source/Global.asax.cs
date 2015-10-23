@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using SimpleMvcWeb;
 
 namespace aspmvc4azure.web
 {
@@ -13,6 +12,8 @@ namespace aspmvc4azure.web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            GlobalFilters.Filters.Add(new UserProfilePictureActionFilter(), 0);
         }
     }
 }
