@@ -34,9 +34,6 @@
         "serverName": {
             "type": "string"
         },
-        "serverLocation": {
-            "type": "string"
-        },
         "administratorLogin": {
             "type": "string"
         },
@@ -62,9 +59,9 @@
             "type": "string",
             "defaultValue": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c"
         },
-         "someAppSetting": {
+        "Application Name": {
             "type": "string",
-            "defaultValue": "Test App Setting Value"
+            "defaultValue": "Default Application Name"
         },
         "repoUrl": {
         "type": "string"
@@ -77,7 +74,7 @@
         {
             "name": "[parameters('serverName')]",
             "type": "Microsoft.Sql/servers",
-            "location": "[parameters('serverLocation')]",
+            "location": "[parameters('siteLocation')]",
             "tags": {
                 "displayName": "SqlServer"
             },
@@ -90,7 +87,7 @@
                 {
                     "name": "[parameters('databaseName')]",
                     "type": "databases",
-                    "location": "[parameters('serverLocation')]",
+                    "location": "[parameters('siteLocation')]",
                     "tags": {
                         "displayName": "Database"
                     },
@@ -111,7 +108,7 @@
                     "dependsOn": [
                         "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
                     ],
-                    "location": "[parameters('serverLocation')]",
+                    "location": "[parameters('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
                         "endIpAddress": "0.0.0.0",
@@ -163,14 +160,14 @@
                         "connectionStrings": [
                             {
                                 "ConnectionString": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('databaseName'), ';User Id=', parameters('administratorLogin'), '@', parameters('serverName'), ';Password=', parameters('administratorLoginPassword'), ';')]",
-                                "Name": "SqlConnection",
+                                "Name": "azuresql",
                                 "Type": 2
                             }
                         ],
                         "appSettings": [
                             {
-                                "name": "someAppSetting",
-                                "value": "[parameters('someAppSetting')]"
+                                "name": "ApplicationName",
+                                "value": "[parameters('Application Name')]"
                             }
                         ]
                     }
