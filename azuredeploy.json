@@ -82,26 +82,9 @@
             "properties": {
                 "administratorLogin": "[parameters('administratorLogin')]",
                 "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+                "version":"12.0"
             },
             "resources": [
-                {
-                    "name": "[parameters('databaseName')]",
-                    "type": "databases",
-                    "location": "[parameters('siteLocation')]",
-                    "tags": {
-                        "displayName": "Database"
-                    },
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-                    ],
-                    "properties": {
-                        "edition": "[parameters('edition')]",
-                        "collation": "[parameters('collation')]",
-                        "maxSizeBytes": "[parameters('maxSizeBytes')]",
-                        "requestedServiceObjectiveId": "[parameters('requestedServiceObjectiveId')]"
-                    }
-                },
                 {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
@@ -111,8 +94,8 @@
                     "location": "[parameters('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
-                        "endIpAddress": "0.0.0.0",
-                        "startIpAddress": "0.0.0.0"
+                        "endIpAddress": "109.232.61.206",
+                        "startIpAddress": "109.232.61.206"
                     }
                 }
             ]
