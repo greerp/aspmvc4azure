@@ -186,7 +186,7 @@
                             },
                             {
                                 "name": "DBServer",
-                                "value": "[parameters('siteName')]"
+                                "value": "[parameters('serverName')]"
                             },
                         ]
                     }
