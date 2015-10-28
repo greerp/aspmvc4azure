@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Azure
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,9 +18,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    @{ string appname = @ViewBag.ApplicationName;}
+                @{ string appname = @ViewBag.ApplicationName;}
+                
+                @{
+                    //string setting = System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"];
+                    string setting = CloudConfigurationManager.GetSetting("ApplicationName");
+                }
 
-                    @Html.ActionLink(appname, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(setting, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 
             </div>
             <div class="navbar-collapse collapse">

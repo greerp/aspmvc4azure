@@ -40,9 +40,6 @@
         "administratorLoginPassword": {
             "type": "securestring"
         },
-        "databaseName": {
-            "type": "string"
-        },
         "collation": {
             "type": "string",
             "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
@@ -72,7 +69,7 @@
     },
     
     "variables": {
-        "paulsVar":"Blah Blah"
+        "databaseName":"azuredb"
     },
 
 
@@ -174,8 +171,8 @@
                     "properties": {
                         "connectionStrings": [
                             {
-                                "ConnectionString": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('databaseName'), ';User Id=', parameters('administratorLogin'), '@', parameters('serverName'), ';Password=', parameters('administratorLoginPassword'), ';')]",
-                                "Name": "azuresql",
+                                "ConnectionString": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', parameters('administratorLogin'), '@', parameters('serverName'), ';Password=', parameters('administratorLoginPassword'), ';')]",
+                                "Name": "DefaultCDonnection",
                                 "Type": 2
                             }
                         ],

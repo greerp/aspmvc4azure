@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,7 +15,14 @@ namespace aspmvc4azure.web.Controllers
         // GET: Products
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.ToListAsync());
+            try {
+                return View(await db.Products.ToListAsync());
+            }
+            catch (Exception e){
+                Trace.TraceError(e.StackTrace);
+                throw;
+            }
+
         }
 
         // GET: Products/Details/5
