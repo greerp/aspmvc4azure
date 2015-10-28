@@ -9,7 +9,7 @@
             "type": "string"
         },
         "siteLocation": {
-            "type": "string"
+            "type": "string",
             "defaultValue": "West Europe"
         },
         "sku": {
