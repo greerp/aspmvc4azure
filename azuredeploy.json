@@ -206,6 +206,9 @@
                 {
                   "apiVersion": "2014-04-01",
                   "name": "logs",
+                  "dependsOn": [
+                        "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
+                  ],
                   "type": "config",
                   "properties": {
                     "applicationLogs": {
