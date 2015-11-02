@@ -2,10 +2,8 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "siteName": {
-            "type": "string"
-        },
-        "hostingPlanName": {
+
+        "resourceSuffix": {
             "type": "string"
         },
         "siteLocation": {
@@ -31,13 +29,10 @@
             ],
             "defaultValue": "0"
         },
-        "sqlServerName": {
+        "administratorLogin": {
             "type": "string"
         },
-        "sqlAdministratorLogin": {
-            "type": "string"
-        },
-        "sqlAdministratorPassword": {
+        "administratorPassword": {
             "type": "securestring"
         },
         "collation": {
@@ -48,43 +43,66 @@
             "type": "string",
             "defaultValue": "Basic"
         },
-        "maxSizeBytes": {
-            "type": "string",
-            "defaultValue": "1073741824"
-        },
-        "requestedServiceObjectiveId": {
-            "type": "string",
-            "defaultValue": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c"
-        },
-        "Application Name": {
+        "applicationName": {
             "type": "string",
             "defaultValue": "Default Application Name"
         },
         "repoUrl": {
-        "type": "string"
+            "type": "string"
         },
         "branch": {
-        "type": "string"
+            "type": "string"
         }
     },
     
     "variables": {
-        "databaseName":"azuredb"
-    },
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "OSDiskName": "osdiskforwindowssimple",
+        "addressPrefix": "10.0.0.0/16",
+        "subnetName": "Subnet",
+        "subnetPrefix": "10.0.0.0/24",
+        "storageAccountType": "Standard_LRS",
+        "publicIPAddressType": "Dynamic",
+        "vmStorageAccountContainerName": "vhds",
+        "vmSize": "Standard_A2",
+        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+        "windowsOSVersion":"2012-R2-Datacenter",
 
+        "siteName" : "[concat('site',parameters('resourceSuffix'))]",
+        "siteLocation" : "[parameters('siteLocation')]",
+        "nicName": "[concat('nic',parameters('resourceSuffix'))]",
+        "sqlServerName" : "[concat('sqlsrv',parameters('resourceSuffix'))]",
+        "databaseName":"[concat('sqldb',parameters('resourceSuffix'))]",
+        "storageAccountName" : "[concat('store',parameters('resourceSuffix'))]",
+        "publicIPAddressName": "[concat('vmipaddr',parameters('resourceSuffix'))]",
+        "vmName": "[concat('vm',parameters('resourceSuffix'))]",
+        "virtualNetworkName": "[concat('vnet',parameters('resourceSuffix'))]",
+        "hostingPlanName" : "[concat('hostplan',parameters('resourceSuffix'))]",
+        
+        "administratorLogin" : "[parameters('administratorLogin')]",
+        "administratorPassword" : "[parameters('administratorPassword')]",
+        "dnsNameForPublicIP":"[parameters('resourceSuffix')]",
+        "sku" : "[parameters('sku')",
+        "workerSize" : "[parameters('workerSize')]",
+        "applicationName" : "[parameters('applicationName')]",
+        "repoUrl" : "[parameters('repoUrl')]",
+        "branch" : "[parameters('branch')]",
+    },
 
     "resources": [
         {
-            "name": "[parameters('sqlServerName')]",
+            "name": "[variables('sqlServerName')]",
             "type": "Microsoft.Sql/servers",
-            "location": "[parameters('siteLocation')]",
+            "location": "[variables('siteLocation')]",
             "tags": {
                 "displayName": "SqlServer"
             },
             "apiVersion": "2014-04-01-preview",
             "properties": {
-                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-                "administratorLoginPassword": "[parameters('sqlAdministratorPassword')]",
+                "administratorLogin": "[variables('administratorLogin')]",
+                "administratorLoginPassword": "[variables('administratorPassword')]",
                 "version":"12.0"
             },
             "resources": [
@@ -92,9 +110,9 @@
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('sqlServerName'))]"
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
                     ],
-                    "location": "[parameters('siteLocation')]",
+                    "location": "[variables('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
                         "endIpAddress": "109.232.61.206",
@@ -105,9 +123,9 @@
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('sqlServerName'))]"
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
                     ],
-                    "location": "[parameters('siteLocation')]",
+                    "location": "[variables('siteLocation')]",
                     "name": "Microsoft",
                     "properties": {
                         "startIpAddress": "0.0.0.0",
@@ -118,9 +136,9 @@
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('sqlServerName'))]"
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
                     ],
-                    "location": "[parameters('siteLocation')]",
+                    "location": "[variables('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps_1",
                     "properties": {
                         "startIpAddress": "0.0.0.0",
@@ -131,34 +149,34 @@
         },
         {
             "apiVersion": "2014-06-01",
-            "name": "[parameters('hostingPlanName')]",
+            "name": "[variables('hostingPlanName')]",
             "type": "Microsoft.Web/serverfarms",
-            "location": "[parameters('siteLocation')]",
+            "location": "[variables('siteLocation')]",
             "tags": {
                 "displayName": "HostingPlan"
             },
             "properties": {
-                "name": "[parameters('hostingPlanName')]",
-                "sku": "[parameters('sku')]",
-                "workerSize": "[parameters('workerSize')]",
+                "name": "[variables('hostingPlanName')]",
+                "sku": "[variables('sku')]",
+                "workerSize": "[variables('workerSize')]",
                 "numberOfWorkers": 1
             }
         },
         {
             "apiVersion": "2014-06-01",
-            "name": "[parameters('siteName')]",
+            "name": "[variables('siteName')]",
             "type": "Microsoft.Web/sites",
-            "location": "[parameters('siteLocation')]",
+            "location": "[variables('siteLocation')]",
             "dependsOn": [
-                "[concat('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]"
+                "[concat('Microsoft.Web/serverFarms/', variables('hostingPlanName'))]"
             ],
             "tags": {
-                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty",
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "empty",
                 "displayName": "Website"
             },
             "properties": {
-                "name": "[parameters('siteName')]",
-                "serverFarm": "[parameters('hostingPlanName')]"
+                "name": "[variables('siteName')]",
+                "serverFarm": "[variables('hostingPlanName')]"
             },
             "resources": [
                 {
@@ -166,12 +184,12 @@
                     "type": "config",
                     "name": "web",
                     "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
                     ],
                     "properties": {
                         "connectionStrings": [
                             {
-                                "ConnectionString": "[concat('Data Source=', reference(concat('Microsoft.Sql/servers/', parameters('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', parameters('sqlAdministratorLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlAdministratorPassword'), ';')]",
+                                "ConnectionString": "[concat('Data Source=', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', variables('administratorLogin'), '@', variables('sqlServerName'), ';Password=', variables('administratorPassword'), ';')]",
                                 "Name": "DefaultConnection",
                                 "Type": 2
                             }
@@ -179,11 +197,11 @@
                         "appSettings": [
                             {
                                 "name": "ApplicationName",
-                                "value": "[parameters('Application Name')]"
+                                "value": "[variables('applicationName')]"
                             },
                             {
                                 "name": "DBServer",
-                                "value": "[parameters('sqlServerName')]"
+                                "value": "[variables('sqlServerName')]"
                             },
                         ]
                     }
@@ -193,12 +211,12 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/web')]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
                     ],
                     "properties": {
-                        "RepoUrl": "[parameters('repoUrl')]",
-                        "branch": "[parameters('branch')]",
+                        "RepoUrl": "[variables('repoUrl')]",
+                        "branch": "[variables('branch')]",
                         "IsManualIntegration": true
                     }
                 },
@@ -207,7 +225,7 @@
                   "apiVersion": "2014-04-01",
                   "name": "logs",
                   "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
                   ],
                   "type": "config",
                   "properties": {
@@ -244,8 +262,82 @@
                       "enabled": true
                     }
                   }
-                }
+                },
             ]
+        },
+      
+        {
+        "type": "Microsoft.Storage/storageAccounts",
+        "name": "[variables('storageAccountName')]",
+        "apiVersion": "2015-05-01-preview",
+        "location": "[variables('siteLocation')]",
+        "properties": {
+            "accountType": "[variables('storageAccountType')]"
+            }
+        },
+            
+        {
+          "apiVersion": "2015-05-01-preview",
+          "type": "Microsoft.Network/publicIPAddresses",
+          "name": "[variables('publicIPAddressName')]",
+          "location": "[variables('siteLocation')]",
+          "properties": {
+            "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+            "dnsSettings": {
+                "domainNameLabel": "[variables('dnsNameForPublicIP')]"
+                }
+            }
+        },
+
+        {
+          "apiVersion": "2015-05-01-preview",
+          "type": "Microsoft.Network/virtualNetworks",
+          "name": "[variables('virtualNetworkName')]",
+          "location": "[variables('siteLocation')]",
+          "properties": {
+            "addressSpace": {
+              "addressPrefixes": [
+                "[variables('addressPrefix')]"
+              ]
+            },
+            "subnets": [
+              {
+                "name": "[variables('subnetName')]",
+                "properties": {
+                  "addressPrefix": "[variables('subnetPrefix')]"
+                }
+              }
+            ]
+          }
+        },
+
+        {
+          "apiVersion": "2015-05-01-preview",
+          "type": "Microsoft.Network/networkInterfaces",
+          "name": "[variables('nicName')]",
+          "location": "[variables('siteLocation')]",
+          "dependsOn": [
+            "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+            "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+          ],
+          "properties": {
+            "ipConfigurations": [
+              {
+                "name": "ipconfig1",
+                "properties": {
+                  "privateIPAllocationMethod": "Dynamic",
+                  "publicIPAddress": {
+                    "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+                  },
+                  "subnet": {
+                    "id": "[variables('subnetRef')]"
+                  }
+                }
+              }
+            ]
+          }
         }
+
+
     ]
 }
