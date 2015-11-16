@@ -211,7 +211,19 @@
                         ]
                     }
                 },
- 
+                {
+                    "apiVersion": "2014-04-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[variables('repoUrl')]",
+                        "branch": "[variables('branch')]",
+                        "IsManualIntegration": true
+                    }
+                },
 
                 {
                   "apiVersion": "2014-04-01",
