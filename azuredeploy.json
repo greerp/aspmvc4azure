@@ -74,7 +74,7 @@
         "siteLocation" : "[parameters('siteLocation')]",
         "nicName": "[concat('nic',parameters('resourceSuffix'))]",
         "sqlServerName" : "[concat('sqlsrv',parameters('resourceSuffix'))]",
-        "databaseName":"[concat('sqldb',parameters('resourceSuffix'))]",
+        "databaseName":"azuredb",
         "storageAccountName" : "[concat('store',parameters('resourceSuffix'))]",
         "publicIPAddressName": "[concat('vmipaddr',parameters('resourceSuffix'))]",
         "vmName": "[concat('vm',parameters('resourceSuffix'))]",
@@ -106,6 +106,25 @@
                 "version":"12.0"
             },
             "resources": [
+                {
+                    "name": "[parameters('databaseName')]",
+                    "type": "databases",
+                    "location": "[parameters('siteLocation')]",
+                    "tags": {
+                        "displayName": "Database"
+                    },
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                    ],
+                    "properties": {
+                        "edition": "[parameters('edition')]",
+                        "collation": "[parameters('collation')]",
+                        "maxSizeBytes": "268435456000"
+                    }
+                },
+                
+                
                 {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
