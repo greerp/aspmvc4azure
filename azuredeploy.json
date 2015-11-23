@@ -208,8 +208,8 @@
                 },
                 {
                     "apiVersion": "2014-06-01",
-                    "name": "sourcecontrols",
-                    "type": "config",
+                    "name": "web",
+                    "type": "sourcecontrols",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
                         "[concat('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
