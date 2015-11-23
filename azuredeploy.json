@@ -107,9 +107,9 @@
             },
             "resources": [
                 {
-                    "name": "[parameters('databaseName')]",
+                    "name": "[variables('databaseName')]",
                     "type": "databases",
-                    "location": "[parameters('siteLocation')]",
+                    "location": "[variables('siteLocation')]",
                     "tags": {
                         "displayName": "Database"
                     },
