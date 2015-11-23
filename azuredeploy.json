@@ -211,8 +211,7 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
                         "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'appsettings')]",
-                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]",
-                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'logs')]"
+                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]"
                         
                     ],
                     "properties": {
