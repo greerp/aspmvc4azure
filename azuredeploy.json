@@ -166,6 +166,7 @@
                 "serverFarm": "[variables('hostingPlanName')]"
             },
             "resources": [
+                
                 {
                     "apiVersion": "2014-06-01",
                     "type": "config",
@@ -198,8 +199,7 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
-                        "[concat('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
+                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]"
                     ],
                     "properties": {
                         "RepoUrl": "[variables('repoUrl')]",
