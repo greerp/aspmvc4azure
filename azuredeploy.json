@@ -212,7 +212,7 @@
                     "type": "config",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
-                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
                     ],
                     "properties": {
                         "RepoUrl": "[variables('repoUrl')]",
