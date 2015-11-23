@@ -179,36 +179,34 @@
                 "serverFarm": "[variables('hostingPlanName')]"
             },
             "resources": [
-               {
+                {
                     "apiVersion": "2014-06-01",
+                    "name": "appsettings",
                     "type": "config",
-                    "name": "settings",
                     "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
                     ],
                     "properties": {
-                        "connectionStrings": [
-                            {
-                                "ConnectionString": "[concat('Data Source=', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', variables('administratorLogin'), '@', variables('sqlServerName'), ';Password=', variables('administratorPassword'), ';')]",
-                                "Name": "DefaultConnection",
-                                "Type": 2
-                            }
-                        ],
-                        "appSettings": [
-                            {
-                                "name": "ApplicationName",
-                                "value": "[variables('applicationName')]"
-                            },
-                            {
-                                "name": "DBServer",
-                                "value": "[variables('sqlServerName')]"
-                            }
-                        ]
+                        "ApplicationName": "[variables('applicationName')]",
+                        "DBServer": "[variables('sqlServerName')]"
                     }
                 },
                 {
                     "apiVersion": "2014-06-01",
-                    "name": "sourcecontrols",
+                    "name": "connectionstrings",
+                    "type": "config",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites/', variables('siteName'))]",
+                        "[resourceId('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "properties": {
+                        "DefaultConnection": { "value": "[concat('Data Source=', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', variables('administratorLogin'), '@', variables('sqlServerName'), ';Password=', variables('administratorPassword'), ';')]", 
+                        "type": "SQLAzure" }
+                    }
+                },
+                {
+                    "apiVersion": "2014-06-01",
+                    "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]"
