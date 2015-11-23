@@ -209,9 +209,9 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
                         "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'appsettings')]",
-                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]"
+                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]",
+                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'logs')]"
                         
                     ],
                     "properties": {
@@ -222,7 +222,46 @@
                 }
                 
                 
-
+                ,
+                {
+                  "apiVersion": "2015-08-01",
+                  "name": "logs",
+                  "type": "config",
+                  "properties": {
+                    "applicationLogs": {
+                      "fileSystem": {
+                        "level": "Verbose"
+                      },
+                      "azureTableStorage": {
+                        "level": "Off",
+                        "sasUrl": null
+                      },
+                      "azureBlobStorage": {
+                        "level": "Off",
+                        "sasUrl": null,
+                        "retentionInDays": null
+                      }
+                    },
+                    "httpLogs": {
+                      "fileSystem": {
+                        "retentionInMb": 35,
+                        "retentionInDays": null,
+                        "enabled": true
+                      },
+                      "azureBlobStorage": {
+                        "sasUrl": null,
+                        "retentionInDays": null,
+                        "enabled": false
+                      }
+                    },
+                    "failedRequestsTracing": {
+                      "enabled": true
+                    },
+                    "detailedErrorMessages": {
+                      "enabled": true
+                    }
+                  }
+                }
             ]
         },
       
