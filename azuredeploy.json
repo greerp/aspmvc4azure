@@ -43,11 +43,6 @@
             "type": "string",
             "defaultValue": "Basic"
         },
-        "requestedServiceObjectiveId": {
-            "type": "string",
-            "defaultValue": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c"
-        },
-
         "applicationName": {
             "type": "string",
             "defaultValue": "Default Application Name"
@@ -89,11 +84,11 @@
         "administratorLogin" : "[parameters('administratorLogin')]",
         "administratorPassword" : "[parameters('administratorPassword')]",
         "dnsNameForPublicIP":"[parameters('resourceSuffix')]",
-        "sku" : "[parameters('sku')]",
+        "sku" : "[parameters('sku')",
         "workerSize" : "[parameters('workerSize')]",
         "applicationName" : "[parameters('applicationName')]",
         "repoUrl" : "[parameters('repoUrl')]",
-        "branch" : "[parameters('branch')]",
+        "branch" : "[parameters('branch')]"
     },
 
     "resources": [
@@ -136,13 +131,26 @@
                         "startIpAddress": "0.0.0.0",
                         "endIpAddress": "255.255.255.255"
                     }
+                },
+               {
+                    "type": "firewallrules",
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "location": "[variables('siteLocation')]",
+                    "name": "AllowAllWindowsAzureIps_1",
+                    "properties": {
+                        "startIpAddress": "0.0.0.0",
+                        "endIpAddress": "0.0.0.0"
+                    }
                 }
             ]
         },
         {
-            "apiVersion": "2014-11-01",
+            "apiVersion": "2014-06-01",
             "name": "[variables('hostingPlanName')]",
-            "type": "Microsoft.Web/serverFarms",
+            "type": "Microsoft.Web/serverfarms",
             "location": "[variables('siteLocation')]",
             "tags": {
                 "displayName": "HostingPlan"
@@ -157,7 +165,7 @@
         {
             "apiVersion": "2014-06-01",
             "name": "[variables('siteName')]",
-            "type": "Microsoft.Web/Sites",
+            "type": "Microsoft.Web/sites",
             "location": "[variables('siteLocation')]",
             "dependsOn": [
                 "[concat('Microsoft.Web/serverFarms/', variables('hostingPlanName'))]"
@@ -203,7 +211,8 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'), '/config/web')]"
                     ],
                     "properties": {
                         "RepoUrl": "[variables('repoUrl')]",
@@ -256,17 +265,17 @@
                 },
             ]
         },
+      
         {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccountName')]",
-            "apiVersion": "2015-05-01-preview",
-            "location": "[variables('siteLocation')]",
-            "properties": {
-                "accountType": "[variables('storageAccountType')]"
+        "type": "Microsoft.Storage/storageAccounts",
+        "name": "[variables('storageAccountName')]",
+        "apiVersion": "2015-05-01-preview",
+        "location": "[variables('siteLocation')]",
+        "properties": {
+            "accountType": "[variables('storageAccountType')]"
             }
         },
-
-
+            
         {
           "apiVersion": "2015-05-01-preview",
           "type": "Microsoft.Network/publicIPAddresses",
@@ -327,7 +336,8 @@
               }
             ]
           }
-        }        
+        }
+
 
     ]
 }
