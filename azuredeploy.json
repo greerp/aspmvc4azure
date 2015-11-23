@@ -84,7 +84,7 @@
         "administratorLogin" : "[parameters('administratorLogin')]",
         "administratorPassword" : "[parameters('administratorPassword')]",
         "dnsNameForPublicIP":"[parameters('resourceSuffix')]",
-        "sku" : "[parameters('sku')",
+        "sku" : "[parameters('sku')]",
         "workerSize" : "[parameters('workerSize')]",
         "applicationName" : "[parameters('applicationName')]",
         "repoUrl" : "[parameters('repoUrl')]",
