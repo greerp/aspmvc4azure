@@ -131,19 +131,6 @@
                         "startIpAddress": "0.0.0.0",
                         "endIpAddress": "255.255.255.255"
                     }
-                },
-               {
-                    "type": "firewallrules",
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
-                    ],
-                    "location": "[variables('siteLocation')]",
-                    "name": "AllowAllWindowsAzureIps_1",
-                    "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "0.0.0.0"
-                    }
                 }
             ]
         },
