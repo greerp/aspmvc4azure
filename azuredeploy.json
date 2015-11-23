@@ -115,7 +115,7 @@
                     },
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
                     ],
                     "properties": {
                         "edition": "[parameters('edition')]",
