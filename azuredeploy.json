@@ -204,50 +204,25 @@
                         "type": "SQLAzure" }
                     }
                 },
-
-
                 {
-                  "apiVersion": "2014-06-01",
-                  "name": "logs",
-                  "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
-                  ],
-                  "type": "config",
-                  "properties": {
-                    "applicationLogs": {
-                      "fileSystem": {
-                        "level": "Verbose"
-                      },
-                      "azureTableStorage": {
-                        "level": "Off",
-                        "sasUrl": null
-                      },
-                      "azureBlobStorage": {
-                        "level": "Off",
-                        "sasUrl": null,
-                        "retentionInDays": null
-                      }
-                    },
-                    "httpLogs": {
-                      "fileSystem": {
-                        "retentionInMb": 35,
-                        "retentionInDays": null,
-                        "enabled": true
-                      },
-                      "azureBlobStorage": {
-                        "sasUrl": null,
-                        "retentionInDays": null,
-                        "enabled": false
-                      }
-                    },
-                    "failedRequestsTracing": {
-                      "enabled": true
-                    },
-                    "detailedErrorMessages": {
-                      "enabled": true
+                    "apiVersion": "2015-08-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
+                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'appsettings')]",
+                        "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]"
+                        
+                    ],
+                    "properties": {
+                        "RepoUrl": "[variables('repoUrl')]",
+                        "branch": "[variables('branch')]",
+                        "IsManualIntegration": true
                     }
-                  }
                 }
+                
+                
+
             ]
         },
       
