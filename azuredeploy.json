@@ -209,6 +209,7 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites/', variables('siteName'))]",
                         "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'appsettings')]",
                         "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'connectionstrings')]",
                         "[resourceId('Microsoft.Web/Sites/config', variables('siteName'),'logs')]"
@@ -226,6 +227,9 @@
                 {
                   "apiVersion": "2015-08-01",
                   "name": "logs",
+                  "dependsOn": [
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
+                  ],
                   "type": "config",
                   "properties": {
                     "applicationLogs": {
