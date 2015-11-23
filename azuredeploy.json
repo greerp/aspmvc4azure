@@ -107,25 +107,6 @@
             },
             "resources": [
                 {
-                    "name": "[variables('databaseName')]",
-                    "type": "databases",
-                    "location": "[variables('siteLocation')]",
-                    "tags": {
-                        "displayName": "Database"
-                    },
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
-                    ],
-                    "properties": {
-                        "edition": "[parameters('edition')]",
-                        "collation": "[parameters('collation')]",
-                        "maxSizeBytes": "268435456000"
-                    }
-                },
-                
-                
-                {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
@@ -134,8 +115,8 @@
                     "location": "[variables('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
-                        "endIpAddress": "109.232.61.206",
-                        "startIpAddress": "109.232.61.206"
+                        "startIpAddress": "109.232.61.206",
+                        "endIpAddress": "109.232.61.206"
                     }
                 },
                {
