@@ -1,2 +1,2 @@
 [config]
-command=echo Hello
+command=deploy.cmd
