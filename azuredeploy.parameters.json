@@ -23,10 +23,10 @@
         },
 
         "repoUrl": {
-            "value": "n/a"
+            "value": "https://bitbucket.org/hiscoxpsg/azure-pilot-helloworld"
         },
         "branch": {
-            "value": "n/a"
+            "value": "master"
         }
 
 
