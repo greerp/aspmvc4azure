@@ -2,7 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-
         "resourceSuffix": {
             "type": "string"
         },
@@ -54,7 +53,6 @@
             "type": "string"
         }
     },
-    
     "variables": {
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
@@ -88,7 +86,6 @@
         "repoUrl" : "[concat(parameters('repoUrl'),'.git')]",
         "branch" : "[parameters('branch')]"
     },
-
     "resources": [
         {
             "apiVersion": "2014-06-01",
@@ -105,7 +102,6 @@
                 "numberOfWorkers": 1
             }
         },
-
         {
             "apiVersion": "2014-06-01",
             "name": "[variables('siteName')]",
@@ -155,17 +151,10 @@
                     "properties": {
                         "RepoUrl": "[variables('repoUrl')]",
                         "branch": "[variables('branch')]",
-                        "isManualIntegration": true,
-                        "deploymentRollbackEnabled": false,
-                        "isMercurial": false                        
+                        "IsManualIntegration": true                 
                     }
                 }          
             ]
         }
-
-
-
-
-
     ]
 }
