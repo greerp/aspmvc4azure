@@ -106,6 +106,45 @@
                 "version":"12.0"
             },
             "resources": [
+                {
+                    "type": "firewallrules",
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "location": "[variables('siteLocation')]",
+                    "name": "AllowAllWindowsAzureIps",
+                    "properties": {
+                        "endIpAddress": "109.232.61.206",
+                        "startIpAddress": "109.232.61.206"
+                    }
+                },
+               {
+                    "type": "firewallrules",
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "location": "[variables('siteLocation')]",
+                    "name": "Microsoft",
+                    "properties": {
+                        "endIpAddress": "255.255.255.255",
+                        "startIpAddress": "0.0.0.0",
+                    }
+                },
+                {
+                    "type": "firewallrules",
+                    "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "location": "[variables('siteLocation')]",
+                    "name": "AllowAllWindowsAzureIps_1",
+                    "properties": {
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    }
+                }
             ]
         },
         {
@@ -142,10 +181,37 @@
             "resources": [
                 {
                     "apiVersion": "2015-08-01",
+                    "name": "appsettings",
+                    "type": "config",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+                    ],
+                    "properties": {
+                        "ApplicationName": "[variables('applicationName')]",
+                        "DBServer": "[variables('sqlServerName')]"
+                    }
+                },
+                {
+                    "apiVersion": "2015-08-01",
+                    "name": "connectionstrings",
+                    "type": "config",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites/', variables('siteName'))]",
+                        "[resourceId('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
+                    "properties": {
+                        "DefaultConnection": { "value": "[concat('Data Source=', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', variables('administratorLogin'), '@', variables('sqlServerName'), ';Password=', variables('administratorPassword'), ';')]", 
+                        "type": "SQLAzure" }
+                    }
+                },
+                {
+                    "apiVersion": "2015-08-01",
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'),'/config/appsettings')]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'),'/config/connectionstrings')]"
                         
                     ],
                     "properties": {
