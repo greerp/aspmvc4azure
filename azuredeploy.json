@@ -139,7 +139,7 @@
                         "ApplicationName": "[variables('applicationName')]",
                         "DBServer": "[variables('sqlServerName')]"
                     }
-                }
+                },
                 {
                     "apiVersion": "2015-08-01",
                     "name": "web",
