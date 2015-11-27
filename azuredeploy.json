@@ -109,6 +109,9 @@
                 {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
                     "location": "[variables('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
@@ -119,6 +122,9 @@
                {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
                     "location": "[variables('siteLocation')]",
                     "name": "Microsoft",
                     "properties": {
@@ -129,6 +135,9 @@
                 {
                     "type": "firewallrules",
                     "apiVersion": "2014-04-01-preview",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+                    ],
                     "location": "[variables('siteLocation')]",
                     "name": "AllowAllWindowsAzureIps_1",
                     "properties": {
