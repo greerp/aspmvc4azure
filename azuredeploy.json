@@ -106,45 +106,6 @@
                 "version":"12.0"
             },
             "resources": [
-                {
-                    "type": "firewallrules",
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
-                    ],
-                    "location": "[variables('siteLocation')]",
-                    "name": "AllowAllWindowsAzureIps",
-                    "properties": {
-                        "startIpAddress": "109.232.61.206",
-                        "endIpAddress": "109.232.61.206"
-                    }
-                },
-               {
-                    "type": "firewallrules",
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
-                    ],
-                    "location": "[variables('siteLocation')]",
-                    "name": "Microsoft",
-                    "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "255.255.255.255"
-                    }
-                },
-                {
-                    "type": "firewallrules",
-                    "apiVersion": "2014-04-01-preview",
-                    "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
-                    ],
-                    "location": "[variables('siteLocation')]",
-                    "name": "AllowAllWindowsAzureIps_1",
-                    "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "0.0.0.0"
-                    }
-                }
             ]
         },
         {
