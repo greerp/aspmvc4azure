@@ -2,6 +2,9 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "SiteName": {
+            "type": "string"
+        },
 
         "resourceSuffix": {
             "type": "string"
@@ -70,7 +73,7 @@
         "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
         "windowsOSVersion":"2012-R2-Datacenter",
 
-        "siteName" : "[concat('site',parameters('resourceSuffix'))]",
+        "siteName" : "[parameters('SiteName')]",
         "siteLocation" : "[parameters('siteLocation')]",
         "nicName": "[concat('nic',parameters('resourceSuffix'))]",
         "sqlServerName" : "[concat('sqlsrv',parameters('resourceSuffix'))]",
@@ -87,7 +90,7 @@
         "sku" : "[parameters('sku')]",
         "workerSize" : "[parameters('workerSize')]",
         "applicationName" : "[parameters('applicationName')]",
-        "repoUrl" : "[concat(parameters('repoUrl'),'.git')]",
+        "repoUrl" : "[concat(parameters('repoUrl'))]",
         "branch" : "[parameters('branch')]"
     },
 
@@ -129,7 +132,7 @@
                     "name": "Microsoft",
                     "properties": {
                         "endIpAddress": "255.255.255.255",
-                        "startIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
                     }
                 },
                 {
