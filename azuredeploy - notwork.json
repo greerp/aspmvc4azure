@@ -2,7 +2,7 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "siteName": {
+        "SiteName": {
             "type": "string"
         },
 
@@ -167,7 +167,7 @@
         },
         {
             "apiVersion": "2014-06-01",
-            "name": "[parameters('siteName')]",
+            "name": "[variables('siteName')]",
             "type": "Microsoft.Web/sites",
             "location": "[variables('siteLocation')]",
             "dependsOn": [
@@ -178,7 +178,7 @@
                 "displayName": "Website"
             },
             "properties": {
-                "name": "[parameters('siteName')]",
+                "name": "[variables('siteName')]",
                 "serverFarm": "[variables('hostingPlanName')]"
             },
             "resources": [
@@ -187,7 +187,7 @@
                     "name": "appsettings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
                     ],
                     "properties": {
                         "ApplicationName": "[variables('applicationName')]",
@@ -199,7 +199,7 @@
                     "name": "connectionstrings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites/', parameters('siteName'))]",
+                        "[resourceId('Microsoft.Web/sites/', variables('siteName'))]",
                         "[resourceId('Microsoft.Sql/servers/', variables('sqlServerName'))]"
                     ],
                     "properties": {
@@ -212,9 +212,9 @@
                     "name": "web",
                     "type": "sourcecontrols",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'),'/config/appsettings')]",
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'),'/config/connectionstrings')]"
+                        "[resourceId('Microsoft.Web/Sites', variables('siteName'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'),'/config/appsettings')]",
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'),'/config/connectionstrings')]"
                         
                     ],
                     "properties": {
@@ -230,7 +230,7 @@
                   "apiVersion": "2015-08-01",
                   "name": "logs",
                   "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
+                        "[concat('Microsoft.Web/Sites/', variables('siteName'))]"
                   ],
                   "type": "config",
                   "properties": {
